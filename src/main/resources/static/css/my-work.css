@@ -1,0 +1,167 @@
+
+#wrapper{
+    background-color:rgb(238,239,241);
+}
+#header{
+    margin-bottom: 24px;
+    height: 94px;
+    width: 100%;
+    background-color: white;
+    box-shadow:0 1px 1px rgb(221,221,221);
+}
+#header div{
+    display: inline-block;
+}
+#header #logo{
+    height: 74px;
+    margin: 20px 0 0 40px;
+}
+#header #logo img:first-child{
+    width: 50px;
+    height: 50px;
+    vertical-align: baseline;
+}
+#header #publish{
+    float: right;
+    height: 58px;
+    margin:36px 60px 0 0;
+}
+#header #publish ul li{
+    float: left;
+    padding: 0.7em 3em;
+    margin: auto 1em;
+    border:1px solid rgb(255,68,102);
+}
+#header #publish ul li a:hover{
+    text-decoration: none;
+}
+#header #publish ul li{
+    background-color: rgb(255,68,102);
+}
+#header #publish ul li:hover{
+    background-color: rgba(255,68,102,0.8);
+    border:1px solid rgba(255,68,102,0.8);
+}
+#header #publish ul li a{
+    color: white;
+}
+#container{
+    width: 94%;
+    margin: auto 3%;
+}
+#container .note{
+     margin-bottom:0.7em ;
+     font-size: 0.8em;
+     color: rgb(100,100,100);
+ }
+#main,#aside{
+    display:inline-block;
+    float: left;
+}
+#main{
+     width:63%;
+ }
+#main #now,#main #done{
+    padding: 3em 2em;
+    margin-bottom:1em;
+    background-color: white;
+    box-shadow:5px 5px 5px rgb(221,221,221);
+}
+#main .works h1{
+    padding-bottom: 1em;
+    font-size:1.4em;
+    color: rgb(255,68,102);
+    border-bottom: 1px dashed rgb(221,221,221);
+}
+#main .works .details li{
+    width: 70%;
+    margin: 1em 0;
+}
+#main .works .details li:first-child{
+    font-size: 1.2em;
+    color:dodgerblue;
+}
+#main .works .details li:not(first-child),#main .works .details li:not(first-child) span{
+    float: left;
+    font-size: 0.9em;
+    color: #5d5d5d;
+}
+#main .works .details li:not(first-child) span{
+    padding: 0 1em 0 0;
+}
+#main .works .details li .money{
+    color: rgb(255,68,102);
+}
+#main .works .progress li{
+    display: inline-block;
+    padding: 0.5em 1em ;
+    margin: 0.8em 0;
+    font-family: "微软雅黑 Light";
+    font-size: 0.8em;
+    background-color: dodgerblue;
+    color: white;
+    border: 1px solid rgb(221,221,221);
+    border-radius: 20px;
+}
+#main #now .progress li:nth-child(3){
+    background:none;
+    color: dodgerblue;
+}
+#main .works li:last-child{
+    margin-top: 1em;
+    font-size: 0.8em;
+    color: #5d5d5d;
+}
+#main .works li:last-child textarea{
+    vertical-align: text-top;
+    height: 10em;
+    width:30em;
+}
+#main .works li:last-child input{
+    margin: 1em 2.5em;
+    padding: 0.5em 1em;
+    background-color: rgb(255,68,102);
+    outline: none;
+    border: none;
+    color: white;
+}
+#aside {
+    width: 33%;
+    margin-left: 2%;
+    margin-bottom: 2em;
+    padding:2em 4em;
+    background-color: white;
+}
+#aside h1{
+    margin-left:25%;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    font-size: 1.2em;
+}
+#aside hr{
+    width: 100%;
+}
+#aside form p{
+    padding: 1em;
+    margin: auto 10%;
+    font-size:0.9em;
+}
+#aside form .submit{
+    display: inline-block;
+    padding: 0.7em 1.7em;
+    margin: 2em 30%;
+    font-size: 1em;
+    border:1px solid rgb(255,68,102);
+    border-radius: 10px;
+    outline: none;
+    background-color:rgb(255,68,102) ;
+    color: white;
+}
+#aside form p input,#main form p select{
+    padding: 0.7em;
+    border: 1px solid rgb(200,200,200);
+    border-radius: 3px;
+}
+#aside form p textarea{
+    vertical-align: text-top;
+}

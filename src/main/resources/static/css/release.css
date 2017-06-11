@@ -1,0 +1,49 @@
+
+#container .note{
+    margin-left: 2%;
+    margin-bottom:0.7em ;
+    font-size: 0.8em;
+    color: rgb(100,100,100);
+}
+#main{
+    width: 96%;
+    margin-left:2%;
+    margin-right:2%;
+    background-color: white;
+}
+#main h1{
+    margin-left:42%;
+    padding-top: 1em;
+    padding-bottom: 0.5em;
+    font-size: 1.2em;
+}
+#main hr{
+    width: 100%;
+}
+#main form p{
+    padding: 1em;
+    margin: auto 32%;
+    font-size:0.9em;
+}
+#main form .submit{
+    padding: 0.7em 2em;
+    margin: 2em 40%;
+    font-size: 1em;
+    border:1px solid rgb(255,68,102);
+    border-radius: 10px;
+    outline: none;
+    background-color:rgb(255,68,102) ;
+    color: white;
+}
+#main form p input,#main form p select{
+    padding: 0.7em;
+    border: 1px solid rgb(200,200,200);
+    border-radius: 3px;
+}
+#main form p .necessary{
+    color:rgb(255,68,102);
+    font-weight: bold;
+}
+#main form p textarea{
+    vertical-align: text-top;
+}

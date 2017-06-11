@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>西柚易兼职</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="short icon" type="image/x-icon" href="img/logo.png"/>
+    <link rel="stylesheet" type="text/css" href="css/flexslider.css" />
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
+    <script  type="text/javascript">
+        $(function() {
+            $(".flexslider").flexslider({
+                slideshowSpeed: 3000, //展示时间间隔ms
+                animationSpeed: 400, //滚动时间ms
+                touch: true //是否支持触屏滑动
+            });
+        });
+        $(function(){
+            var header=$("#header");
+            $(window).scroll(function(){
+                if($(window).scrollTop()>=100){
+                    header.addClass("fixed-header");
+                    $(".fixed-header").fadeIn();
+                }
+                else{
+                    header.removeClass("fixed-header");
+                }
+            })
+        })
+
+    </script>
+    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
+    <link type="text/css" href="css/bootstrap-pagination.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8" src="js/bootstrap-pagination.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var demo1 = BootstrapPagination($("#demo1"), {
+                //记录总数。
+                total: 101,
+                //当前页索引编号。从其开始（从0开始）的整数。
+                pageIndex: 2,
+                //当分页更改后引发此事件。
+                pageChanged: function (pageIndex, pageSize) {
+                    alert("page changed. 页数:" + (pageIndex+1) + ",每页最大记录数:" + pageSize)
+                }
+            });
+            var demo2 = BootstrapPagination($("#demo2"), {
+                layoutScheme: "lefttext,pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                //记录总数。
+                total: 101,
+                //分页尺寸。指示每页最多显示的记录数量。
+                pageSize: 20,
+                //当前页索引编号。从其开始（从0开始）的整数。
+                pageIndex: 2,
+                //指示分页导航栏中最多显示的页索引数量。
+                pageGroupSize: 5,
+                //位于导航条左侧的输出信息格式化字符串
+                leftFormateString: "本页{count}条记录/共{total}条记录",
+                //位于导航条右侧的输出信息格式化字符串
+                rightFormateString: "第{pageNumber}页/共{totalPages}页",
+                //页码文本格式化字符串。
+                pageNumberFormateString: "{pageNumber}",
+                //分页尺寸输出格式化字符串
+                pageSizeListFormateString: "每页显示{pageSize}条记录",
+                //上一页导航按钮文本。
+                prevPageText: "上一页",
+                //下一页导航按钮文本。
+                nextPageText: "下一页",
+                //上一组分页导航按钮文本。
+                prevGroupPageText: "上一组",
+                //下一组分页导航按钮文本。
+                nextGroupPageText: "下一组",
+                //首页导航按钮文本。
+                firstPageText: "首页",
+                //尾页导航按钮文本。
+                lastPageText: "尾页",
+                //设置页码输入框中显示的提示文本。
+                pageInputPlaceholder: "GO",
+                //接受用户输入内容的延迟时间。单位：毫秒
+                pageInputTimeout: 800,
+                //分页尺寸列表。
+                pageSizeList: [5, 10, 20, 50, 100, 200],
+                //当分页更改后引发此事件。
+                pageChanged: function (pageIndex, pageSize) {
+                    alert("page changed. 页数:" + (pageIndex+1) + ",每页最大记录数:" + pageSize)
+                }
+            });
+            var demo3 = BootstrapPagination($(".demo3"));
+            var demo4 = BootstrapPagination($(".demo4"));
+        });
+    </script>
+    <link href="css/public.css" rel="stylesheet"/>
+    <link type="text/css" href="css/index.css" rel="stylesheet"/>
+</head>
+<body id="wrapper">
+        <!-- S #header -->
+        <!--<p class="yiban">易班 非同一般</p>-->
+        <br/> <br/>
+        <header id="header">
+        	<div id="logo">
+        		<img src="img/logo.png" alt="logo"/>
+        		<img src="img/fun-part-time.png" alt="fun-part-time"/>
+        	</div>
+        	<div id="publish">
+                <ul>
+                    <li><a href="my-work1.html" target="_self">我的兼职小屋</a></li>
+                    <li><a href="/goPushView" target="_self">发布兼职信息</a></li>
+                </ul>
+        	</div>
+        </header>
+        <!-- E #header -->
+        <section id="container">
+            <main id="main">
+                <div class="flexslider">
+                    <ul class="slides">
+                        <li><img src="img/努力.jpg" height="300px"/></li>
+                        <li><img src="img/f1.jpg" height="300px"/></li>
+                        <li><img src="img/s3.jpg" height="300px"/></li>
+                        <li><img src="img/s2.jpg" height="300px"/></li>
+
+                    </ul>
+                </div>
+                <div id="message-block">
+                    <div class="slogan">
+                        <img src="img/王冠.png " height="25px" width="25px"/>
+                        <span>易兼职 给你所求</span>
+                    </div>
+                    <div id="display">
+                        <ul>
+                            <li>
+                                <div class="left">
+                                    <h3><a href="#" target="_blank">游乐园兼职160/天（单招生包吃住）</a></h3>
+                                    <div id="details">
+                                        <span id="publisher">成都市诚品文化传播有限公司 / </span>
+                                        <span id="address">  青羊八宝街 / </span>
+                                        <span id="time"> 4月1日 </span>
+                                    </div>
+                                </div>
+                                <div id="money">160元/天</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <form class="form-inline" style="text-align: center" >
+                        <nav>
+                            <ul class="pagination demo3" data-total="101" data-pageindex="1" data-pagesize="20" data-pagegroupsize="5"
+                                data-leftformatestring=""
+                                data-rightformatestring=""
+                                data-pagenumberformatestring="{pageNumber}"
+                                data-pagesizelistformatestring="每页显示{pageSize}条记录"
+                                data-prevpagetext="上一页" data-nextpagetext="下一页"
+                                data-prevgrouppagetext="上一组" data-nextgrouppagetext="下一组"
+                                data-firstpagetext="首页" data-lastpagetext="尾页"
+                                data-pageinput-placeholder="GO" data-pageinput-timeout="800"
+                                data-pagesizelist="[5, 10, 20, 50, 100, 200]"
+                                data-pagechanged='function (pageIndex, pageSize) {alert("page changed. pageIndex:" + pageIndex + ",pageSize:" + pageSize);};'
+                                data-layoutscheme="lefttext,pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext">
+                            </ul>
+                        </nav>
+                    </form>
+                </div>
+            </main>
+            <aside id="aside">
+                <div id="research">
+                    <input type="text" placeholder="搜学生兼职"/>
+                    <button type="button" >GO</button>
+                </div>
+                <div class="slogan">
+                    <img src="img/分类.png" height="25px" width="25px"/>
+                    <span>兼职种类</span>
+                </div>
+                <div id="category" class="shadow">
+                    <ul>
+                        <li><a href="#">传单派发</a></li>
+                        <li><a href="#">家教</a></li>
+                        <li><a href="#">促销/导购</a></li>
+                        <li><a href="#">才艺老师</a></li>
+                        <li><a href="#">服务员</a></li>
+                        <li><a href="#">展会活动</a></li>
+                        <li><a href="#">翻译兼职</a></li>
+                        <li><a href="#">摄影兼职</a></li>
+                        <li><a href="#">打字员</a></li>
+                        <li><a href="#">淘宝客服</a></li>
+                        <li><a href="#">其他兼职</a></li>
+                    </ul>
+                </div>
+                <div class="slogan">
+                    <img src="img/地点.png " height="25px" width="25px"/>
+                    <span>工作地点</span>
+                </div>
+                <div id="area" class="shadow">
+                    <ul>
+                        <li><a href="#">武侯</a></li>
+                        <li><a href="#">金牛</a></li>
+                        <li><a href="#">锦江</a></li>
+                        <li><a href="#">青羊</a></li>
+                        <li><a href="#">高新</a></li>
+                        <li><a href="#">成华</a></li>
+                        <li><a href="#">双流</a></li>
+                        <li><a href="#">郫县</a></li>
+                        <li><a href="#">新都</a></li>
+                        <li><a href="#">温江</a></li>
+                        <li><a href="#">都江堰</a></li>
+                        <li><a href="#">崇州</a></li>
+                        <li><a href="#">彭州</a></li>
+                        <li><a href="#">新津</a></li>
+                        <li><a href="#">大邑</a></li>
+                        <li><a href="#">青白江</a></li>
+                        <li><a href="#">金堂</a></li>
+                        <li><a href="#">浦江</a></li>
+                        <li><a href="#">邛崃</a></li>
+                        <li><a href="#">高新西区</a></li>
+                        <li><a href="#">天府新区</a></li>
+                        <li><a href="#">全成都</a></li>
+                    </ul>
+                </div>
+                <div class="slogan">
+                    <img src="img/推荐.png " height="25px" width="25px"/>
+                    <span>你可能感兴趣</span>
+                </div>
+                <div id="recommend" class="shadow">
+                    <ul>
+                        <li><a href="#">书店兼职</a></li>
+                        <li><a href="#">家教</a></li>
+                        <li><a href="#">传单派发</a></li>
+                        <li><a href="#">才艺老师</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </section>
+        <!-- pages -->
+
+        <!-- S #footer -->
+        <footer id="footer">
+            <ul id="link">
+                <li>
+                    <img src="img/icon-swpu.jpg" style="width: 18px;height: 18px;border-radius:9px;vertical-align:text-top;margin: -1px 0.5em 0 0" />友情链接</li>
+                <li><a href="http://www.swpu.edu.cn">西南石油大学门户网站</a></li>
+                <li><a href="http://zsjy.swpu.edu.cn/">西南石油大学招就处</a></li>
+                <li><a href="http://jwc.swpu.edu.cn/">西南石油大学教务处</a></li>
+            </ul>
+            <br/>
+            <address>
+                <p>©CopyRight 2017-2027 FUN part-time Inc All Rights Reserved.</p>
+                <p><span>版权所有</span>西柚易兼职</p>
+            </address>
+        </footer>
+        <!-- E #footer -->
+</body>
+</html>
