@@ -28,7 +28,7 @@ public class InfoRecordService {
             return new Message(0,"请勿重复申请");
         }else {
             PtimeInfo ptimeInfo=ptimeInfoRepository.findById(Long.valueOf(jobId));
-            ptimeInfo.setNumber(ptimeInfo.getNumber()-1);
+            ptimeInfo.setNeedNumber(ptimeInfo.getNeedNumber()-1);
             if (ptimeInfo.getNumber()<=0)ptimeInfo.setIsEnd(1);
             ptimeInfoRepository.save(ptimeInfo);
             InfoRecord infoRecord1=new InfoRecord(Long.valueOf(stuId),Long.valueOf(jobId),"0");

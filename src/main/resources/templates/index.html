@@ -1,14 +1,111 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="jobApp" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8"/>
     <title>西柚易兼职</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="short icon" type="image/x-icon" href="img/logo.png"/>
     <link rel="stylesheet" type="text/css" href="css/flexslider.css" />
+    <script src="//cdn.bootcss.com/angular.js/1.5.5/angular.js"></script>
     <script type="text/javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="js/jquery.flexslider-min.js"></script>
     <script  type="text/javascript">
+        var app=angular.module("jobApp",[]);
+        app.controller("jobCtrl",function ($scope, $http) {
+            $scope.index="";
+            $scope.location="";
+            $scope.kind="";
+            $scope.getJobs=function () {
+                $http({
+                    method:"get",
+                    url:"/showPtimeJobs",
+                    params:{
+                        index:$scope.index,
+                        location:$scope.location,
+                        kind:$scope.kind
+                    }
+                }).success(function (jobsPage) {
+                    $scope.jobs=jobsPage.content;
+                    $scope.latestPage(jobsPage);
+                })
+            };
+            $scope.getJobs();
+            $scope.changeIndex=function () {
+                $scope.index=document.getElementById("query").value;
+                $scope.location="";
+                $scope.kind="";
+                $scope.getJobs();
+            };
+            $scope.changeKind=function (element) {
+                $scope.kind=element.value;
+                $scope.location="";
+                $scope.index="";
+                $scope.getJobs();
+            };
+            $scope.changeLocation=function (element) {
+                $scope.location=element.value;
+                $scope.index="";
+                $scope.kind="";
+                $scope.getJobs();
+            };
+            $scope.latestPage=function (all) {
+                var demo2 = BootstrapPagination($("#demo2"), {
+                    layoutScheme: "lefttext,pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
+                    //记录总数。
+                    total: all.totalElements,
+                    //分页尺寸。指示每页最多显示的记录数量。
+                    pageSize: all.size,
+                    //当前页索引编号。从其开始（从0开始）的整数。
+                    pageIndex: all.number,
+                    //指示分页导航栏中最多显示的页索引数量。
+                    pageGroupSize: 5,
+                    //位于导航条左侧的输出信息格式化字符串
+                    leftFormateString: "本页{count}条记录/共{total}条记录",
+                    //位于导航条右侧的输出信息格式化字符串
+                    rightFormateString: "第{pageNumber}页/共{totalPages}页",
+                    //页码文本格式化字符串。
+                    pageNumberFormateString: "{pageNumber}",
+                    //分页尺寸输出格式化字符串
+                    pageSizeListFormateString: "每页显示{pageSize}条记录",
+                    //上一页导航按钮文本。
+                    prevPageText: "上一页",
+                    //下一页导航按钮文本。
+                    nextPageText: "下一页",
+                    //上一组分页导航按钮文本。
+                    prevGroupPageText: "上一组",
+                    //下一组分页导航按钮文本。
+                    nextGroupPageText: "下一组",
+                    //首页导航按钮文本。
+                    firstPageText: "首页",
+                    //尾页导航按钮文本。
+                    lastPageText: "尾页",
+                    //设置页码输入框中显示的提示文本。
+                    pageInputPlaceholder: "GO",
+                    //接受用户输入内容的延迟时间。单位：毫秒
+                    pageInputTimeout: 800,
+                    //分页尺寸列表。
+                    pageSizeList: [2, 5, 10, 20, 50, 100, 200],
+                    //当分页更改后引发此事件。
+                    pageChanged: function (pageIndex, pageSize) {
+                        $http({
+                            method:"get",
+                            url:"/showPtimeJobs",
+                            params:{
+                                page:pageIndex,
+                                size:pageSize,
+                                location:$scope.location,
+                                kind:$scope.kind,
+                                index:$scope.index
+                            }
+                        }).success(function (jobsPage) {
+                            $scope.jobs = jobsPage.content;
+                            $scope.latestPage(jobsPage);
+                        })
+                    }
+                });
+            }
+        });
         $(function() {
             $(".flexslider").flexslider({
                 slideshowSpeed: 3000, //展示时间间隔ms
@@ -34,67 +131,10 @@
     <script type="text/javascript" charset="utf-8" src="js/bootstrap.min.js"></script>
     <link type="text/css" href="css/bootstrap-pagination.min.css" rel="stylesheet"/>
     <script type="text/javascript" charset="utf-8" src="js/bootstrap-pagination.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var demo1 = BootstrapPagination($("#demo1"), {
-                //记录总数。
-                total: 101,
-                //当前页索引编号。从其开始（从0开始）的整数。
-                pageIndex: 2,
-                //当分页更改后引发此事件。
-                pageChanged: function (pageIndex, pageSize) {
-                    alert("page changed. 页数:" + (pageIndex+1) + ",每页最大记录数:" + pageSize)
-                }
-            });
-            var demo2 = BootstrapPagination($("#demo2"), {
-                layoutScheme: "lefttext,pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext",
-                //记录总数。
-                total: 101,
-                //分页尺寸。指示每页最多显示的记录数量。
-                pageSize: 20,
-                //当前页索引编号。从其开始（从0开始）的整数。
-                pageIndex: 2,
-                //指示分页导航栏中最多显示的页索引数量。
-                pageGroupSize: 5,
-                //位于导航条左侧的输出信息格式化字符串
-                leftFormateString: "本页{count}条记录/共{total}条记录",
-                //位于导航条右侧的输出信息格式化字符串
-                rightFormateString: "第{pageNumber}页/共{totalPages}页",
-                //页码文本格式化字符串。
-                pageNumberFormateString: "{pageNumber}",
-                //分页尺寸输出格式化字符串
-                pageSizeListFormateString: "每页显示{pageSize}条记录",
-                //上一页导航按钮文本。
-                prevPageText: "上一页",
-                //下一页导航按钮文本。
-                nextPageText: "下一页",
-                //上一组分页导航按钮文本。
-                prevGroupPageText: "上一组",
-                //下一组分页导航按钮文本。
-                nextGroupPageText: "下一组",
-                //首页导航按钮文本。
-                firstPageText: "首页",
-                //尾页导航按钮文本。
-                lastPageText: "尾页",
-                //设置页码输入框中显示的提示文本。
-                pageInputPlaceholder: "GO",
-                //接受用户输入内容的延迟时间。单位：毫秒
-                pageInputTimeout: 800,
-                //分页尺寸列表。
-                pageSizeList: [5, 10, 20, 50, 100, 200],
-                //当分页更改后引发此事件。
-                pageChanged: function (pageIndex, pageSize) {
-                    alert("page changed. 页数:" + (pageIndex+1) + ",每页最大记录数:" + pageSize)
-                }
-            });
-            var demo3 = BootstrapPagination($(".demo3"));
-            var demo4 = BootstrapPagination($(".demo4"));
-        });
-    </script>
     <link href="css/public.css" rel="stylesheet"/>
     <link type="text/css" href="css/index.css" rel="stylesheet"/>
 </head>
-<body id="wrapper">
+<body id="wrapper" ng-controller="jobCtrl">
         <!-- S #header -->
         <!--<p class="yiban">易班 非同一般</p>-->
         <br/> <br/>
@@ -129,33 +169,23 @@
                     </div>
                     <div id="display">
                         <ul>
-                            <li>
-                                <div class="left">
-                                    <h3><a href="#" target="_blank">游乐园兼职160/天（单招生包吃住）</a></h3>
+                            <li ng-repeat="job in jobs">
+                                <div class="left" >
+                                    <h3><a href="/getPtimeJobDetail/{{job.id}}" target="_blank">{{job.title}}</a></h3>
                                     <div id="details">
-                                        <span id="publisher">成都市诚品文化传播有限公司 / </span>
-                                        <span id="address">  青羊八宝街 / </span>
-                                        <span id="time"> 4月1日 </span>
+                                        <span id="publisher">{{job.groupName}} / </span>
+                                        <span id="text">{{job.text}} / </span>
+                                        <span id="extra">{{job.extra}} / </span>
                                     </div>
                                 </div>
-                                <div id="money">160元/天</div>
+                                <div id="money">{{job.reward}}</div>
                             </li>
                         </ul>
                     </div>
                     <form class="form-inline" style="text-align: center" >
-                        <nav>
-                            <ul class="pagination demo3" data-total="101" data-pageindex="1" data-pagesize="20" data-pagegroupsize="5"
-                                data-leftformatestring=""
-                                data-rightformatestring=""
-                                data-pagenumberformatestring="{pageNumber}"
-                                data-pagesizelistformatestring="每页显示{pageSize}条记录"
-                                data-prevpagetext="上一页" data-nextpagetext="下一页"
-                                data-prevgrouppagetext="上一组" data-nextgrouppagetext="下一组"
-                                data-firstpagetext="首页" data-lastpagetext="尾页"
-                                data-pageinput-placeholder="GO" data-pageinput-timeout="800"
-                                data-pagesizelist="[5, 10, 20, 50, 100, 200]"
-                                data-pagechanged='function (pageIndex, pageSize) {alert("page changed. pageIndex:" + pageIndex + ",pageSize:" + pageSize);};'
-                                data-layoutscheme="lefttext,pagesizelist,firstpage,prevgrouppage,prevpage,pagenumber,nextpage,nextgrouppage,lastpage,pageinput,righttext">
+                        <nav class="text-center">
+                            <ul id="demo2" class="pagination">
+
                             </ul>
                         </nav>
                     </form>
@@ -163,8 +193,8 @@
             </main>
             <aside id="aside">
                 <div id="research">
-                    <input type="text" placeholder="搜学生兼职"/>
-                    <button type="button" >GO</button>
+                    <input id="query" type="text" placeholder="搜学生兼职"/>
+                    <button type="button" ng-click="changeIndex()" >GO</button>
                 </div>
                 <div class="slogan">
                     <img src="img/分类.png" height="25px" width="25px"/>

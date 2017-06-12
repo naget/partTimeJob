@@ -19,19 +19,40 @@ public class PtimeInfoService {
     PtimeInfoRepository ptimeInfoRepository;
     @Autowired
     InfoRecordRepository infoRecordRepository;
-    public Page<PtimeInfo> getPtimeInfos(Integer page,Integer size,String kind,String location){
+    public Page<PtimeInfo> getPtimeInfos(Integer page,Integer size,String kind,String location,String index){
         Sort sort=new Sort(Sort.Direction.DESC,"id");
         if (kind.equals("")){
             if (location.equals("")){
-                Page<PtimeInfo> ptimeInfoPage=ptimeInfoRepository.findAll(new PageRequest(page,size,sort));
-                return ptimeInfoPage;
-            }
-            Page<PtimeInfo> ptimeInfoPage=ptimeInfoRepository.findByLocation(new PageRequest(page,size,sort),location);
-            return ptimeInfoPage;
+                if (index.equals("")){
+                  return ptimeInfoRepository.findAll(new PageRequest(page,size,sort));
 
+                }else {
+                    return ptimeInfoRepository.findByPersional(index,new PageRequest(page,size,sort));
+                }
+            }else {
+                if (index.equals("")){
+                    return ptimeInfoRepository.findByLocation(new PageRequest(page,size,sort),location);
+                }else {
+                    return ptimeInfoRepository.findByIndexAndLocation(index,location,new PageRequest(page,size,sort));
+                }
+            }
+        }else {
+            if (location.equals(""))
+            {
+                if (index.equals("")){
+                    return ptimeInfoRepository.findByKind(new PageRequest(page,size),kind);
+                }else {
+                    return ptimeInfoRepository.findByIndexAndKind(index,kind,new PageRequest(page,size,sort));
+                }
+
+            }else {
+                if (index.equals("")){
+                    return ptimeInfoRepository.findByLocationAndKind(new PageRequest(page,size,sort),location,kind);
+                }else {
+                    return ptimeInfoRepository.findByIndexAndLocationAndKind(index,location,kind,new PageRequest(page,size,sort));
+                }
+            }
         }
-        Page<PtimeInfo> ptimeInfoPage=ptimeInfoRepository.findByLocationAndKind(new PageRequest(page,size,sort),location,kind);
-        return ptimeInfoPage;
 
     }
 //    private void formatPtimeInfo(List<PtimeInfo> ptimeInfoList){

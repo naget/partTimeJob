@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en" ng-app="wordDApp" xmlns="http://www.w3.org/1999/html" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8"/>
     <title>西柚易兼职-领取兼职</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="short icon" type="image/x-icon" href="img/logo.png"/>
-    <script type="text/javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+    <link rel="short icon" type="image/x-icon" href="../img/logo.png"/>
+    <script src="//cdn.bootcss.com/angular.js/1.5.5/angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/jquery-1.11.0.min.js"></script>
     <script  type="text/javascript">
         $(function () {
             $("#get").click(function () {
@@ -14,17 +16,25 @@
             })
         })
     </script>
-    <link href="css/public.css" type="text/css" rel="stylesheet"/>
-    <link type="text/css" href="css/work-details.css" rel="stylesheet"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var app=angular.module("wordDApp",[]);
+        app.controller("workDCtrl",function ($scope, $http) {
+            $scope.job=[[${job}]]
+        })
+        /*]]>*/
+    </script>
+    <link href="../css/public.css" type="text/css" rel="stylesheet"/>
+    <link type="text/css" href="../css/work-details.css" rel="stylesheet"/>
 </head>
-<body id="wrapper">
+<body id="wrapper" ng-controller="workDCtrl">
 <!-- S #header -->
 <!--<p class="yiban">易班 非同一般</p>-->
 <br/> <br/>
 <header id="header">
     <div id="logo">
-        <img src="img/logo.png" alt="logo"/>
-        <img src="img/fun-part-time.png" alt="fun-part-time"/>
+        <img src="../img/logo.png" alt="logo"/>
+        <img src="../img/fun-part-time.png" alt="fun-part-time"/>
     </div>
     <div id="publish">
         <ul>
@@ -39,33 +49,26 @@
     <main id="main">
         <input type="submit" id="get" value="我要领取"/>
         <ul>
-            <li><h1>婚庆服务工作室兼职直接招募</h1></li>
-            <li><span>公司名称：</span>锦江区红妆婚庆服务工作室</li>
-            <li class="important-info"><span>兼职薪酬：</span>100元/天</li>
-            <li><span>详细地址：</span>春熙路香槟广场1区813</li>
-            <li><span>所在区域：</span>锦江区</li>
-            <li><span>工作时间：</span>周末、平时、假期</li>
-            <li class="important-info"><span>联系电话：</span>187 2513 6542</li>
-            <li><span>所需人数：</span>18人</li>
+            <li><h1>{{job.title}}</h1></li>
+            <li><span>公司名称：</span>{{job.groupName}}</li>
+            <li class="important-info"><span>兼职薪酬：</span>{{job.reward}}</li>
+            <li><span>详细地址：</span>{{job.locationDetail}}</li>
+            <li><span>所在区域：</span>{{job.location}}</li>
+            <li class="important-info"><span>联系电话：</span>{{job.phone}}</li>
+            <li><span>总需人数：</span>{{job.number}}人<span>剩余量：</span>{{job.needNumber}}人</li>
             <li>兼职详述：<span>
-            <pre>
-              本工作室需要招收学徒多名，帮忙DIY制作一些婚庆工​‌‌​‌‌艺礼品。<br/>
-              工作环境优美，氛围轻松，赚钱学技术两不误。<br/>
-              喜欢DIY制作，动手能力强，听从公司安排，耐心细致者优先。<br/>
-             （16-38岁）男女均可。<br/></pre>
+                {{job.text}}
                 </span>
             </li>
             <li>特别要求：<span>
-            <pre>
-              欢迎想加入我们团队的朋友来电联系我，你也可以直接来公司报道。（工作忙，谢绝短信！）<br/>
-              报道时间：10:00--17：00点（周一至六）</pre>
+                {{job.extra}}
             </span>
             </li>
         </ul>
     </main>
     <aside id="aside">
         <div id="partner">
-            <p class="slogan"><img src="img/伙伴管理.png"/>联系小伙伴
+            <p class="slogan"><img src="../img/伙伴管理.png"/>联系小伙伴
             <span class="prompt">(下面的小伙伴也领取了该兼职 联系TA一起去吧）</span>
             </p>
             <ul>
@@ -136,7 +139,7 @@
         </div>
 
         <div id="tips">
-            <p class="slogan"><img src="img/warning.png" alt="warning">兼职小贴士</p>
+            <p class="slogan"><img src="../img/warning.png" alt="warning"/>兼职小贴士</p>
             <ul>
                 <li>1.合理安排自己的兼职时间噢！学习兼职两不误</li>
                 <li>2.选择适合自己的兼职噢！让努力不白费</li>

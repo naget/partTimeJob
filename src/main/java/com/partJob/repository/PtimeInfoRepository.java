@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * Created by t on 2017/3/26.
@@ -12,6 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 public interface PtimeInfoRepository extends JpaRepository<PtimeInfo,Long> {
     @Query("select p from PtimeInfo p where p.isEnd=0")
     Page<PtimeInfo> findAll(Pageable pageable);
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.id=?1")
     PtimeInfo findById(Long id);
     @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=?2")
     Page<PtimeInfo> findByLocation(Pageable pageable,String location);
@@ -19,4 +21,12 @@ public interface PtimeInfoRepository extends JpaRepository<PtimeInfo,Long> {
     Page<PtimeInfo> findByKind(Pageable pageable,String kind);
     @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=?2 and p.kind=?3")
     Page<PtimeInfo> findByLocationAndKind(Pageable pageable,String location,String kind);
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.extra like concat('%',:content,'%') or p.groupName like concat('%',:content,'%') or p.kind like concat('%',:content,'%') or p.reward like concat('%',:content,'%') or p.title like concat('%',:content,'%')or p.location like concat('%',:content,'%')")
+    Page<PtimeInfo> findByPersional(@Param("content")String content,Pageable pageable);
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.kind=:kind and p.extra like concat('%',:content,'%') or p.groupName like concat('%',:content,'%') or p.kind like concat('%',:content,'%') or p.reward like concat('%',:content,'%') or p.title like concat('%',:content,'%') or p.location like concat('%',:content,'%') ")
+    Page<PtimeInfo> findByIndexAndKind(@Param("content")String content,@Param("kind") String kind,Pageable pageable);
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=:location and p.extra like concat('%',:content,'%') or p.groupName like concat('%',:content,'%') or p.kind like concat('%',:content,'%') or p.reward like concat('%',:content,'%') or p.title like concat('%',:content,'%')or p.location like concat('%',:content,'%')")
+    Page<PtimeInfo> findByIndexAndLocation(@Param("content")String content,@Param("location") String location,Pageable pageable);
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=:location and p.kind=:kind and p.extra like concat('%',:content,'%') or p.groupName like concat('%',:content,'%') or p.kind like concat('%',:content,'%') or p.reward like concat('%',:content,'%') or p.title like concat('%',:content,'%')or p.location like concat('%',:content,'%')")
+    Page<PtimeInfo> findByIndexAndLocationAndKind(@Param("content")String content,@Param("location") String location,@Param("kind")String kind, Pageable pageable);
 }

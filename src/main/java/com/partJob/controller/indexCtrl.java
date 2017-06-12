@@ -8,10 +8,8 @@ import com.partJob.service.PtimeInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by t on 2017/3/26.
@@ -27,13 +25,17 @@ public class indexCtrl {
     public Page<PtimeInfo> showPtimeJobs(@RequestParam(value = "page",defaultValue = "0")String page,
                                          @RequestParam(value = "size",defaultValue = "10")String size,
                                          @RequestParam(value = "kind",defaultValue = "")String kind,
-                                         @RequestParam(value = "location",defaultValue = "")String location){
-        return ptimeInfoService.getPtimeInfos(Integer.valueOf(page),Integer.valueOf(size),kind,location);
+                                         @RequestParam(value = "location",defaultValue = "")String location,
+                                         @RequestParam(value = "index",defaultValue = "")String index){
+        return ptimeInfoService.getPtimeInfos(Integer.valueOf(page),Integer.valueOf(size),kind,location,index);
     }
-    @RequestMapping("/getPtimeJobDetail")
+    @RequestMapping("/getPtimeJobDetail/{id}")
     @ResponseBody
-    public PtimeInfo getPtimeJobDetail(@RequestParam(value = "id")String id){
-        return ptimeInfoService.getPtimeJobDetail(Long.valueOf(id));
+    public ModelAndView getPtimeJobDetail(@PathVariable(value = "id")String id, ModelAndView model){
+        PtimeInfo ptimeInfo= ptimeInfoService.getPtimeJobDetail(Long.valueOf(id));
+        model.setViewName("work-details");
+        model.addObject("job",ptimeInfo);
+        return model;
     }
     @RequestMapping(value = "/pushWanted",method = RequestMethod.POST)
     @ResponseBody
