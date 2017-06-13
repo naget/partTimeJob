@@ -23,7 +23,7 @@ public class InfoRecord {
     private String review;
     private Date endTime;
     private Date reviewTime;
-
+public InfoRecord(){}
     public InfoRecord(Long stuId, Long ptimeInfoId, String state) {
         this.stuId = stuId;
         this.ptimeInfoId = ptimeInfoId;

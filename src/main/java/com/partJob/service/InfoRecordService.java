@@ -22,8 +22,8 @@ public class InfoRecordService {
     InfoRecordRepository infoRecordRepository;
     @Autowired
     PtimeInfoRepository ptimeInfoRepository;
-    public Message getJob(String stuId,String jobId){
-        InfoRecord infoRecord=infoRecordRepository.findByStuIdAndPtimeInfoId(Long.valueOf(stuId),Long.valueOf(jobId));
+    public Message getJob(Long stuId,String jobId){
+        InfoRecord infoRecord=infoRecordRepository.findByStuIdAndPtimeInfoId(stuId,Long.valueOf(jobId));
         if (infoRecord!=null){
             return new Message(0,"请勿重复申请");
         }else {

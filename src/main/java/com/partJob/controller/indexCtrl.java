@@ -3,6 +3,8 @@ package com.partJob.controller;
 import com.partJob.model.InfoRecord;
 import com.partJob.model.Message;
 import com.partJob.model.PtimeInfo;
+import com.partJob.model.Student;
+import com.partJob.repository.StudentRepository;
 import com.partJob.service.InfoRecordService;
 import com.partJob.service.PtimeInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class indexCtrl {
     PtimeInfoService ptimeInfoService;
     @Autowired
     InfoRecordService infoRecordService;
+    @Autowired
+    StudentRepository studentRepository;
     @RequestMapping("/showPtimeJobs")
     @ResponseBody
     public Page<PtimeInfo> showPtimeJobs(@RequestParam(value = "page",defaultValue = "0")String page,
@@ -50,19 +54,53 @@ public class indexCtrl {
                            @RequestParam(value = "number")String number,
                            @RequestParam(value = "location")String location,
                             @RequestParam(value = "extra")String extra){
-        Long pubStuId=2015310606654L;//获得登陆者stuid
+        Long pubStuId=201531060664L;//获得登陆者stuid
         PtimeInfo ptimeInfo=new PtimeInfo(groupName,Long.valueOf(pubStuId),title,kind,phone,text,reward,Integer.valueOf(number),Integer.valueOf(number),location,locationDetail,extra);
         return ptimeInfoService.postPtimeInfo(ptimeInfo);
     }
-    @RequestMapping("/getJob")
+    @RequestMapping(value = "/pushMyInfo",method = RequestMethod.POST)
     @ResponseBody
-    public Message getJob(String stuId, String jobId){
+    public Message pushMyInfo(
+                              @RequestParam(value = "location")String location,
+                              @RequestParam(value = "phone")String phone,
+                              @RequestParam(value = "kind")String kind,
+                              @RequestParam(value = "reward")String reward,
+                              @RequestParam(value = "workTime")String workTime,
+                              @RequestParam(value ="extra" )String extra){
+           Long userId=1L;//得到用户ID
+        Student student=studentRepository.findOne(userId);
+        if (null==student)return new Message(0,"用户不存在");
+
+            student.setExtra(extra);
+            student.setLocation(location);
+            student.setPhone(phone);
+            student.setKind(kind);
+            student.setReward(reward);
+            student.setWorkTime(workTime);
+            studentRepository.save(student);
+            return new Message(1,"更新成功");
+
+    }
+
+    @RequestMapping("/getJob/{jobId}")
+    @ResponseBody
+    public Message getJob(Long stuId, @PathVariable String jobId){
+                                stuId=1L;
         return infoRecordService.getJob(stuId,jobId);
     }
     @RequestMapping("/reviewJob")
     @ResponseBody
     public Message reviewJob(String stuId,String jobId,String review){
         return infoRecordService.reviewJob(stuId,jobId,review);
+    }
+    @RequestMapping("/changeMyInfo")
+    @ResponseBody
+    public ModelAndView changeMyInfo(ModelAndView model){
+        Long id=1L;//获取用户id
+        Student myInfo = studentRepository.findOne(id);
+        model.addObject("myInfo",myInfo);
+        model.setViewName("release-resume");
+        return model;
     }
     @RequestMapping("/getReviewInfo")
     @ResponseBody

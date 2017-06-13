@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Data
 @Entity
 public class Student {
-    public Student(Long id, Long stuId, String name, String profession, String location, String phone, String kind, String reword, String workTime, String extra) {
+    public Student(Long id, Long stuId, String name, String profession, String location, String phone, String kind, String reward, String workTime, String extra) {
         this.id = id;
         this.stuId = stuId;
         this.name = name;
@@ -21,10 +21,11 @@ public class Student {
         this.location = location;
         this.phone = phone;
         this.kind = kind;
-        this.reword = reword;
+        this.reward = reward;
         this.workTime = workTime;
         this.extra = extra;
     }
+    public Student(){}
 @Id
 @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -34,7 +35,7 @@ public class Student {
     private String location;
     private String phone;
     private String kind;
-    private String reword;
+    private String reward;
     private String workTime;
     private String extra;
 }

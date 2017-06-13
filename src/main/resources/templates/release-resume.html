@@ -1,14 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="changeInfoApp" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>西柚易兼职-发布简历</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="short icon" type="image/x-icon" href="img/logo.png"/>
+    <script src="//cdn.bootcss.com/angular.js/1.5.5/angular.js"></script>
+    <script type="text/javascript" charset="utf-8" src="js/jquery-1.11.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.1/jquery.form.min.js" integrity="sha384-tIwI8+qJdZBtYYCKwRkjxBGQVZS3gGozr3CtI+5JF/oL1JmPEHzCEnIKbDbLTCer" crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="js/query.form.js"></script>-->
     <link href="css/public.css" rel="stylesheet"/>
     <link type="text/css" href="css/release.css" rel="stylesheet"/>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var app=angular.module("changeInfoApp",[]);
+        app.controller("infoCtrl",function ($scope, $http) {
+            $scope.myInfo=[[${myInfo}]];
+            $scope.init=function () {
+                $("#location").val($scope.myInfo.location);
+                $("#kind").val($scope.myInfo.kind);
+            };
+            $scope.init();
+
+
+        });
+        /*]]>*/
+    </script>
+
 </head>
-<body id="wrapper">
+<body id="wrapper" ng-controller="infoCtrl">
 <!-- S #header -->
 <!--<p class="yiban">易班 非同一般</p>-->
 <br/> <br/>
@@ -19,7 +39,7 @@
     </div>
     <div id="publish">
         <ul>
-            <li><a href="index1.html" target="_self">再回首页看看</a></li>
+            <li><a href="/index" target="_self">再回首页看看</a></li>
         </ul>
     </div>
 </header>
@@ -29,12 +49,12 @@
         <main id="main">
             <h1>完善个人信息</h1>
             <hr/>
-            <form method="get" action="">
-                <p><span class="necessary"> * </span>我的学号 : <input type="text" placeholder="201531012301" disabled="disabled"/></p>
-                <p><span class="necessary"> * </span>我的姓名 : <input type="text" placeholder="项昊" disabled="disabled"/></p>
-                <p><span class="necessary"> * </span>我的专业 : <input type="text" placeholder="计算机科学" disabled="disabled"/></p>
+            <form method="post" action="/pushMyInfo" onsubmit="return submitChange();">
+                <p><span class="necessary"> * </span>我的学号 : <input name="stuId" type="text" placeholder="{{myInfo.stuId}}" disabled="disabled" value="{{myInfo.stuId}}"/></p>
+                <p><span class="necessary"> * </span>我的姓名 : <input type="text" placeholder="{{myInfo.name}}" disabled="disabled"/></p>
+                <p><span class="necessary"> * </span>我的专业 : <input type="text" placeholder="{{myInfo.profession}}" disabled="disabled"/></p>
                 <p><span class="necessary"> * </span>工作区域 :
-                    <select>
+                    <select id="location" name="location">
                         <option value="请选择意向工作区域">  </option>
                         <option value="武侯">武侯</option>
                         <option value="金牛">金牛</option>
@@ -56,9 +76,10 @@
                         <option value="天府新区">天府新区</option>
                     </select>
                 </p>
-                <p><span class="necessary"> * </span>联系电话 : <input type="text" placeholder="输一下电话号码呗"/></p>
+                <p><span class="necessary"> * </span>联系电话 : <input name="phone" type="text" placeholder="{{myInfo.phone}}" value="{{myInfo.phone}}"/></p>
+
                 <p><span class="necessary"> * </span>兼职种类 :
-                    <select>
+                    <select id="kind" name="kind">
                         <option value="传单派发"></option>
                         <option value="传单派发">传单派发</option>
                         <option value="家教">家教</option>
@@ -71,10 +92,10 @@
                         <option value="淘宝客服">淘宝客服</option>
                         <option value="其他兼职">其他兼职</option>
                 </select></p>
-                <p><span class="necessary"> * </span>兼职薪酬 : <input type="text" placeholder="输一下意向入薪酬呗"/></p>
-                <p><span class="necessary"> * </span>工作时间 : <input type="text" placeholder="输一下意向入工作时间呗"/></p>
-                <p>特别要求 : <textarea placeholder="特别要求" wrap="hard" cols="40" rows="5"></textarea></p>
-                <input type="submit" placeholder="保存" class="submit"/>
+                <p><span class="necessary"> * </span>兼职薪酬 : <input name="reward" type="text" placeholder="{{myInfo.reward}}" value="{{myInfo.reward}}"/></p>
+                <p><span class="necessary"> * </span>工作时间 : <input name="workTime" type="text" placeholder="{{myInfo.workTime}}" value="{{myInfo.workTime}}"/></p>
+                <p>特别要求 : <textarea name="extra" placeholder="{{myInfo.extra}}" wrap="hard" cols="40" rows="5">{{myInfo.extra}}</textarea></p>
+                <input type="submit" value="提交" class="submit"/>
             </form>
         </main>
 </section>
@@ -89,4 +110,13 @@
 </footer>
 <!-- E #footer -->
 </body>
+<script>
+    var submitChange=function () {
+        $("form").ajaxSubmit(function (message) {
+            alert(message.text);
+            window.location.href="/index";
+        });
+        return false;
+    }
+</script>
 </html>

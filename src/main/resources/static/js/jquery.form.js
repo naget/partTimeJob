@@ -14,6 +14,7 @@
 /*global ActiveXObject */
 
 // AMD support
+
 (function (factory) {
     "use strict";
     if (typeof define === 'function' && define.amd) {
