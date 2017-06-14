@@ -14,4 +14,5 @@ public interface InfoRecordRepository extends JpaRepository<InfoRecord,Long> {
     InfoRecord findByStuIdAndPtimeInfoId(Long id,Long pId);
     @Query("SELECT i from InfoRecord i where i.ptimeInfoId=?1")
     Page<InfoRecord> findByJobId(Long id, Pageable pageable);
+    Page<InfoRecord> findByStuIdAndState(Long stuId,String state,Pageable pageable);
 }

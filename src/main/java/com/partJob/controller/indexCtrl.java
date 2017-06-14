@@ -1,9 +1,6 @@
 package com.partJob.controller;
 
-import com.partJob.model.InfoRecord;
-import com.partJob.model.Message;
-import com.partJob.model.PtimeInfo;
-import com.partJob.model.Student;
+import com.partJob.model.*;
 import com.partJob.repository.StudentRepository;
 import com.partJob.service.InfoRecordService;
 import com.partJob.service.PtimeInfoService;
@@ -12,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 /**
  * Created by t on 2017/3/26.
@@ -40,6 +39,11 @@ public class indexCtrl {
         model.setViewName("work-details");
         model.addObject("job",ptimeInfo);
         return model;
+    }
+    @RequestMapping("/getJobDetail")
+    @ResponseBody
+    public PtimeInfo getJobDetail(@RequestParam String jobId){
+        return ptimeInfoService.getPtimeJobDetail(Long.valueOf(jobId));
     }
     @RequestMapping(value = "/pushWanted",method = RequestMethod.POST)
     @ResponseBody
@@ -90,8 +94,15 @@ public class indexCtrl {
     }
     @RequestMapping("/reviewJob")
     @ResponseBody
-    public Message reviewJob(String stuId,String jobId,String review){
-        return infoRecordService.reviewJob(stuId,jobId,review);
+    public Message reviewJob(@RequestParam String jobId,@RequestParam String review){
+        Long stuId=1L;
+        return infoRecordService.reviewJob(stuId,Long.valueOf(jobId),review);
+    }
+    @RequestMapping("/getStateJobs")
+    @ResponseBody
+    public List<JobMessage> getStateJobs(String state){
+        Long userId=1L;
+        return infoRecordService.getStateJob(userId,state);
     }
     @RequestMapping("/changeMyInfo")
     @ResponseBody
@@ -106,6 +117,19 @@ public class indexCtrl {
     @ResponseBody
     public Page<InfoRecord> getReviewInfo(String jobId,String page,String size){
         return infoRecordService.showReviewInfo(jobId, page, size);
+    }
+    @RequestMapping("/getMyInfo")
+    @ResponseBody
+    public ModelAndView getMyInfo(ModelAndView modelAndView){
+        Long id=1L;
+        Student myInfo= infoRecordService.getStudentInfo(id);
+        List<JobMessage> doingList=infoRecordService.getStateJob(id,"0");
+        List<JobMessage> doneList=infoRecordService.getStateJob(id,"1");
+        modelAndView.addObject("myInfo",myInfo);
+        modelAndView.addObject("doingList",doingList);
+        modelAndView.addObject("doneList",doneList);
+        modelAndView.setViewName("my-work");
+        return modelAndView;
     }
 
 }

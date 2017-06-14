@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="jobsApp"  xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>西柚易兼职-我的兼职</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="short icon" type="image/x-icon" href="img/logo.png"/>
+    <script src="//cdn.bootcss.com/angular.js/1.5.5/angular.js"></script>
     <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.6.2/jquery.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -33,10 +34,62 @@
             }
         })(jQuery);
     </script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+    var app=angular.module("jobsApp",[]);
+    app.controller("jobsCtrl",function ($scope, $http) {
+        $scope.init=function () {
+            $scope.myInfo=[[${myInfo}]];
+            $scope.doingList=[[${doingList}]];
+            $scope.doneList=[[${doneList}]];
+        };
+        $scope.init();
+        $scope.review=function (element) {
+            var review=document.getElementById("remark-content").value;
+            console.log(element);
+            console.log(review);
+            $http({
+                method:"get",
+                url:"/reviewJob",
+                params:{
+                    review:review,
+                    jobId:element
+                }
+            }).success(function (message) {
+                alert(message.text);
+                $scope.getNewDoingList();
+                $scope.getNewDoneList();
+            })
+        };
+        $scope.getNewDoingList=function () {
+            $http({
+                method:"get",
+                url:"/getStateJobs",
+                params:{
+                    state:0
+                }
+            }).success(function (message) {
+                $scope.doingList=message;
+            })
+        }
+        $scope.getNewDoneList=function () {
+            $http({
+                method:"get",
+                url:"/getStateJobs",
+                params:{
+                    state:1
+                }
+            }).success(function (message) {
+                $scope.doneList=message;
+            })
+        }
+    })
+        /*]]>*/
+    </script>
     <link href="css/public.css" rel="stylesheet"/>
     <link type="text/css" href="css/my-work1.css" rel="stylesheet"/>
 </head>
-<body id="wrapper" >
+<body id="wrapper" ng-controller="jobsCtrl">
 <!-- S #header -->
 <!--<p class="yiban">易班 非同一般</p>-->
 <br/> <br/>
@@ -95,14 +148,14 @@
                     <div id="now" class="works" style="display: block;">
                         <h1>我现在在做的兼职</h1>
                         <hr/>
-                        <div class="info">
-                            <ul class="details">
-                                <li>婚庆服务工作室兼职直接招募</li>
-                                <li>锦江区红妆婚庆服务工作室</li>
+                        <div class="info" ng-repeat="job in doingList">
+                            <ul class="details" >
+                                <li>{{job.ptimeInfo.title}}</li>
+                                <li>{{job.ptimeInfo.groupName}}</li>
                                 <li>
-                                    <span>锦江</span>
-                                    <span> 周末/平时/假期 </span>
-                                    <span class="money"> 100元/天 </span>
+                                    <span>{{job.ptimeInfo.location}}</span>
+                                    <span> {{job.ptimeInfo.text}} </span>
+                                    <span class="money"> {{job.ptimeInfo.reward}} </span>
                                 </li>
                             </ul>
                             <ul class="progress">
@@ -112,7 +165,7 @@
                             <div class="remark" style="display: block">
                                 评价:
                                 <textarea  id="remark-content" placeholder="说点什么吧！"></textarea><br/>
-                                <input  type="submit"/>
+                                <input name="{{job.ptimeInfo.id}}" ng-click="review(job.ptimeInfo.id)"  type="submit"/>
                             </div>
                         </div>
 
@@ -120,14 +173,14 @@
                     <div id="done" class="works">
                         <h1>我做过的兼职</h1>
                         <hr/>
-                        <div class="info">
+                        <div class="info" ng-repeat="job in doneList">
                             <ul class="details">
-                                <li>元祖蛋糕 临时工招募</li>
-                                <li>成都亮展商务服务有限公司</li>
+                                <li>{{job.ptimeInfo.title}}</li>
+                                <li>{{job.ptimeInfo.groupName}}</li>
                                 <li>
-                                    <span>青羊</span>
-                                    <span>  3月27日 </span>
-                                    <span class="money"> 150元/天 </span>
+                                    <span>{{job.ptimeInfo.location}}/{{job.ptimeInfo.locationDetail}}</span>
+                                    <span>{{job.ptimeInfo.text}}</span>
+                                    <span class="money"> {{job.ptimeInfo.reward}} </span>
                                 </li>
                             </ul>
                             <ul class="progress">
@@ -135,25 +188,8 @@
                                 <li>已完工</li><br/>
                                 <li>已结资</li><br/>
                             </ul>
-                            <div class="remark" style="display: block">评价 : 按时结算工资，兼职虽然比较辛苦，但是我也学到了很多。同事也都非常照顾我。</div>
+                            <div class="remark" style="display: block">评价 : {{job.reviewContent}}</div>
                          </div>
-                        <div class="info">
-                            <ul class="details">
-                                <li>学生家教——英语</li>
-                                <li>锦西人家三期</li>
-                                <li>
-                                    <span>金牛</span>
-                                    <span>  4月1日 </span>
-                                    <span class="money"> 150元/2小时 </span>
-                                </li>
-                            </ul>
-                            <ul class="progress">
-                                <li>已领取</li><br/>
-                                <li>已完工</li><br/>
-                                <li>已结资</li><br/>
-                            </ul>
-                            <div class="remark" style="display: block">评价 : 重拾了以前的知识，再传授给别人，感觉这个过程非常美妙</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -162,15 +198,15 @@
             <h1>我的个人信息</h1>
             <hr/>
             <form method="get" action="">
-                <p>我的学号 : <span>201531012301</span></p>
-                <p>我的姓名 : <span>项昊</span></p>
-                <p>我的专业 : <span>计算机科学</span></p>
-                <p>工作区域 : <span>全成都</span></p>
-                <p>联系电话 : <span>183 2030 5412</span></p>
-                <p>兼职种类 : <span>任意种类</span></p>
-                <p>兼职薪酬 : <span>100元/天</span></p>
-                <p>工作时间 : <span>周末、假期</span></p>
-                <p>特别要求 :  <span>无</span></p>
+                <p>我的学号 : <span>{{myInfo.stuId}}</span></p>
+                <p>我的姓名 : <span>{{myInfo.name}}</span></p>
+                <p>我的专业 : <span>{{myInfo.profession}}</span></p>
+                <p>工作区域 : <span>{{myInfo.location}}</span></p>
+                <p>联系电话 : <span>{{myInfo.phone}}</span></p>
+                <p>兼职种类 : <span>{{myInfo.kind}}</span></p>
+                <p>兼职薪酬 : <span>{{myInfo.reward}}</span></p>
+                <p>工作时间 : <span>{{myInfo.workTime}}</span></p>
+                <p>特别要求 :  <span>{{myInfo.extra}}</span></p>
                 <a href="/changeMyInfo" target="_blank" class="submit">修改</a>
             </form>
         </aside>
