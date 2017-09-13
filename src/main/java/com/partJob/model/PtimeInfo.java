@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
+ * 兼职信息各个信息
  * Created by t on 2017/3/26.
  */
 @Entity

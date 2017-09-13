@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
+ * 兼职信息服务类
  * Created by t on 2017/3/26.
  */
 @Service
@@ -19,6 +20,16 @@ public class PtimeInfoService {
     PtimeInfoRepository ptimeInfoRepository;
     @Autowired
     InfoRecordRepository infoRecordRepository;
+
+    /**
+     * 获取兼职信息
+     * @param page
+     * @param size
+     * @param kind
+     * @param location
+     * @param index
+     * @return
+     */
     public Page<PtimeInfo> getPtimeInfos(Integer page,Integer size,String kind,String location,String index){
         Sort sort=new Sort(Sort.Direction.DESC,"id");
         if (kind.equals("")){
@@ -64,10 +75,22 @@ public class PtimeInfoService {
 //            if (ptimeInfo.getLocation().equals("0"))ptimeInfo.setLocation("成都");
 //        }
 //    }
+
+    /**
+     * 获取兼职信息细节
+     * @param id
+     * @return
+     */
     public PtimeInfo getPtimeJobDetail(Long id){
         PtimeInfo ptimeInfo=ptimeInfoRepository.findById(id);
         return ptimeInfo;
     }
+
+    /**
+     * 发布兼职信息服务
+     * @param ptimeInfo
+     * @return
+     */
     public Message postPtimeInfo(PtimeInfo ptimeInfo){
         ptimeInfoRepository.save(ptimeInfo);
         return new Message(1,"发布成功");

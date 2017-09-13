@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
+ * 学生实体
  * Created by tianfeng on 2017/6/10.
  */
 @Data

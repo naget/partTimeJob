@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 /**
+ * 信息记录model
  * Created by t on 2017/3/26.
  */
 @Entity

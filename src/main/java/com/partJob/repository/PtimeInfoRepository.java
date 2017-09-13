@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 /**
+ * 兼职信息搜寻接口
  * Created by t on 2017/3/26.
  */
 public interface PtimeInfoRepository extends JpaRepository<PtimeInfo,Long> {
@@ -15,9 +16,9 @@ public interface PtimeInfoRepository extends JpaRepository<PtimeInfo,Long> {
     Page<PtimeInfo> findAll(Pageable pageable);
     @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.id=?1")
     PtimeInfo findById(Long id);
-    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=?2")
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=?1")
     Page<PtimeInfo> findByLocation(Pageable pageable,String location);
-    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.kind=?2")
+    @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.kind=?1")//?2改为了?1 ,看来pageable不占位置哇
     Page<PtimeInfo> findByKind(Pageable pageable,String kind);
     @Query("SELECT p from PtimeInfo p where p.isEnd=0 and p.location=?2 and p.kind=?3")
     Page<PtimeInfo> findByLocationAndKind(Pageable pageable,String location,String kind);

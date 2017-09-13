@@ -38,13 +38,13 @@
                 $scope.getJobs();
             };
             $scope.changeKind=function (element) {
-                $scope.kind=element.value;
+                $scope.kind=element;
                 $scope.location="";
                 $scope.index="";
                 $scope.getJobs();
             };
             $scope.changeLocation=function (element) {
-                $scope.location=element.value;
+                $scope.location=element;
                 $scope.index="";
                 $scope.kind="";
                 $scope.getJobs();
@@ -202,17 +202,17 @@
                 </div>
                 <div id="category" class="shadow">
                     <ul>
-                        <li><a href="#">传单派发</a></li>
-                        <li><a href="#">家教</a></li>
-                        <li><a href="#">促销/导购</a></li>
-                        <li><a href="#">才艺老师</a></li>
-                        <li><a href="#">服务员</a></li>
-                        <li><a href="#">展会活动</a></li>
-                        <li><a href="#">翻译兼职</a></li>
-                        <li><a href="#">摄影兼职</a></li>
-                        <li><a href="#">打字员</a></li>
-                        <li><a href="#">淘宝客服</a></li>
-                        <li><a href="#">其他兼职</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('传单派发')">传单派发</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('家教')">家教</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('导购')">导购</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('才艺老师')">才艺老师</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('服务员')">服务员</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('展会活动')">展会活动</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('翻译兼职')">翻译兼职</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('摄影兼职')">摄影兼职</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('打字员')">打字员</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeKind('淘宝客服')">淘宝客服</a></li>
+                        <!--<li><a href="#">其他兼职</a></li>-->
                     </ul>
                 </div>
                 <div class="slogan">
@@ -221,42 +221,42 @@
                 </div>
                 <div id="area" class="shadow">
                     <ul>
-                        <li><a href="#">武侯</a></li>
-                        <li><a href="#">金牛</a></li>
-                        <li><a href="#">锦江</a></li>
-                        <li><a href="#">青羊</a></li>
-                        <li><a href="#">高新</a></li>
-                        <li><a href="#">成华</a></li>
-                        <li><a href="#">双流</a></li>
-                        <li><a href="#">郫县</a></li>
-                        <li><a href="#">新都</a></li>
-                        <li><a href="#">温江</a></li>
-                        <li><a href="#">都江堰</a></li>
-                        <li><a href="#">崇州</a></li>
-                        <li><a href="#">彭州</a></li>
-                        <li><a href="#">新津</a></li>
-                        <li><a href="#">大邑</a></li>
-                        <li><a href="#">青白江</a></li>
-                        <li><a href="#">金堂</a></li>
-                        <li><a href="#">浦江</a></li>
-                        <li><a href="#">邛崃</a></li>
-                        <li><a href="#">高新西区</a></li>
-                        <li><a href="#">天府新区</a></li>
-                        <li><a href="#">全成都</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('武侯')">武侯</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('金牛')">金牛</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('锦江')">锦江</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('青羊')">青羊</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('高新')">高新</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('成华')">成华</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('双流')">双流</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('郫县')">郫县</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('新都')">新都</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('温江')">温江</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('都江堰')">都江堰</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('崇州')">崇州</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('彭州')">彭州</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('新津')">新津</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('大邑')">大邑</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('青白江')">青白江</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('金堂')">金堂</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('浦江')">浦江</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('邛崃')">邛崃</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('高新西区')">高新西区</a></li>
+                        <li><a href="javascript:void (0)" ng-click="changeLocation('天府新区')">天府新区</a></li>
+                        <!--<li><a href="#">全成都</a></li>-->
                     </ul>
                 </div>
-                <div class="slogan">
-                    <img src="img/推荐.png " height="25px" width="25px"/>
-                    <span>你可能感兴趣</span>
-                </div>
-                <div id="recommend" class="shadow">
-                    <ul>
-                        <li><a href="#">书店兼职</a></li>
-                        <li><a href="#">家教</a></li>
-                        <li><a href="#">传单派发</a></li>
-                        <li><a href="#">才艺老师</a></li>
-                    </ul>
-                </div>
+                <!--<div class="slogan">-->
+                    <!--<img src="img/推荐.png " height="25px" width="25px"/>-->
+                    <!--<span>你可能感兴趣</span>-->
+                <!--</div>-->
+                <!--<div id="recommend" class="shadow">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">书店兼职</a></li>-->
+                        <!--<li><a href="#">家教</a></li>-->
+                        <!--<li><a href="#">传单派发</a></li>-->
+                        <!--<li><a href="#">才艺老师</a></li>-->
+                    <!--</ul>-->
+                <!--</div>-->
             </aside>
         </section>
         <!-- pages -->

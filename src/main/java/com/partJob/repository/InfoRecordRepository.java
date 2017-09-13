@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 /**
+ * 信息记录查询接口
  * Created by t on 2017/3/26.
  */
 public interface InfoRecordRepository extends JpaRepository<InfoRecord,Long> {
